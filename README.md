@@ -74,3 +74,6 @@
 1. Python 3.6.5
 2. ORM sqlalchemy　1.2.15
 3. *pika 0.12.0*
+4. pandas
+5. bs4
+6. tushare
