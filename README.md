@@ -53,6 +53,9 @@
     ./Log/
         -日志文件
 
+    ./Support/
+        -支持包文件，包含日志Handle或配置加载器等辅助包
+
     ./DevelopmentLog.md
         -开发日志
 
