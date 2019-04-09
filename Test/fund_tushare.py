@@ -22,7 +22,7 @@ def createEngine(user, password, ip, port, sid):
     return db_engine
 # FUND_TUSHARE/FUND_TUSHARE
 
-orcl12c = createEngine(user='', password='', ip='', port=1521, sid='')
+# orcl12c = createEngine(user='', password='', ip='', port=1521, sid='')
 
 def getCCTVnews(ts_base,time):
     newslist = ts_base.cctv_news(date=time)
@@ -32,12 +32,33 @@ def getFundInformation(ts_base,market='E'):
     FundInformationList = ts_base.fund_basic(market=market,encoding='utf-8')
     return FundInformationList
 
-userSetDateNews = getCCTVnews(base_ts, '20190405')
+def getFundPosition(ts_base,fundcode):
+    FundPositionInfo = ts_base.fund_portfolio(ts_code=fundcode)
+    return FundPositionInfo
 
-fundInfoList = getFundInformation(base_ts,market='O')
+def getMultiFundPosition(ts_base,fund_df):
+    fundDataList = list(fund_df.itertuples(index=False))
+    for key,value in enumerate(fundDataList):
+        print('No.',key)
+        FundPositionInfo_set = ts_base.fund_portfolio(ts_code=value.ts_code)
+        if key>0 and key%60 == 0:
+            time.sleep(30)
+        # FundPositionInfo_set.to_sql(name='FUND_POSITION_LIST', con=orcl12c, if_exists='append')
+        print(FundPositionInfo_set)
+    return FundPositionInfo_set
 
-print(fundInfoList)
+fundInfoList_o = getFundInformation(base_ts,market='O')
+fundInfoList_e = getFundInformation(base_ts)
+MultiFundPosition_set = getMultiFundPosition(base_ts, fundInfoList_o)
+print('please wait a minutes...')
+for i in range(0,60):
+    print(60-i)
+    if 60-i == 1:
+        print('ready...')
+    time.sleep(1)
+print('Go! Next around!')
+MultiFundPosition_set = getMultiFundPosition(base_ts, fundInfoList_e)
 
-fundInfoList.to_sql(name='FUND_INFO_LIST', con=orcl12c, if_exists='append')
+# fundInfoList.to_sql(name='FUND_INFO_LIST', con=orcl12c, if_exists='append')
 
-print(type(fundInfoList))
+# print(type(fundInfoList))
