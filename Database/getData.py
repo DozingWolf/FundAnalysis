@@ -41,7 +41,7 @@ class FUND_INFO_LIST_WORK(Base):
     PURC_STARTDATE = Column(VARCHAR2(24))
     REDM_STARTDATE = Column(VARCHAR2(24))
     MARKET = Column(VARCHAR2(3))
-    GETDATA_FLAG = Column(VARCHAR2(2)
+    GETDATA_FLAG = Column(VARCHAR2(2))
 
     def __repr__(self):
         return '<ALM_WECHAT_LIST(ID=%d,TS_CODE=%s,NAME=%s)>'%(self.ID,self.TS_CODE,self.NAME)
