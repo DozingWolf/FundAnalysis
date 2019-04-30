@@ -124,7 +124,7 @@ session = sessionmaker(bind=engine)
 sess = session()
 result_data = []
 # 此处要根据业务需求添加一些查询条件，等待业务反馈数据再进行处理。
-for row in sess.query(FUND_INFO_LIST_WORK).filter_by(GETDATA_FLAG='00').filter_by(INVEST_TYPE='???'):
+for row in sess.query(FUND_INFO_LIST_WORK).filter_by(GETDATA_FLAG='60'):
     # print('Fund code =',row.TS_CODE,' id =',row.ID)
     row_data = []
     row_data.append(int(row.ID))
